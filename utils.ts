@@ -34,6 +34,11 @@ function valueToOrder(value: string): number {
     }
 }
 
+/**
+ * Return an enumerated value of the card suit
+ * @param card encoded representation of a card
+ * @returns The suit enumeration of the encoded card value
+ */
 function cardToSuit(card: string): Suit {
     switch(card.toLowerCase()) {
         case "h": return Suit.Heart
