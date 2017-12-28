@@ -1,6 +1,5 @@
 import { getHand, getBestHand, decodeCard, decodeHand } from '../suits'
-import { Card , Suit} from '../types'
-
+import { Suit, Card } from '../types'
 
 describe("Get Best Suit", () => {
     it("handles example 1", () => {
@@ -30,19 +29,18 @@ describe("Get Best Suit", () => {
 
 describe("decoding", () => {
 
-    const suits = [
-        "c",
-        "d",
-        "h",
-        "s",
+    const suitsList = [
+        Suit.Club,
+        Suit.Diamond,
+        Suit.Heart,
+        Suit.Spade,
     ]
 
     it("decodes small cards", () => {
         const values = [2,3,4,5,6,7,8,9,10]
-        suits.forEach(function(s){
+        suitsList.forEach(function(suit){
             values.forEach(function(v) {
-                let suit = suits.indexOf(s)+1
-                expect(decodeCard(`${v}${s}`)).toEqual({ suit, order: v})
+                expect(decodeCard(`${v}${suit}`)).toEqual({ suit, order: v})
             })
         })
     })
@@ -51,10 +49,9 @@ describe("decoding", () => {
         const values = ["J", "Q", "K", "A"]
         const orders = [11, 12, 13, 14]
 
-        suits.forEach(function(s){
+        suitsList.forEach(function(suit){
             values.forEach(function(v, idx) {
-                let suit = suits.indexOf(s)+1
-                expect(decodeCard(`${v}${s}`)).toEqual({ suit, order: orders[idx] })
+                expect(decodeCard(`${v}${suit}`)).toEqual({ suit, order: orders[idx] })
             })
         })
     })

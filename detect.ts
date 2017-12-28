@@ -1,11 +1,11 @@
 import { Card } from './types'
 
 /**
- * Accumulate the values and suits
+ * Get the value counts and suit lists for a set of cards
  * @param cards 
  * @returns Tupple of maps with features
  * - map or order counts
- * - map of suit values
+ * - map of suit value lists
  */
 export function detectFeatures(cards: Array<Card>): [ Map<number, number>, Map<string, Array<number>>] {
     let orderMap = new Map()

@@ -4,15 +4,8 @@ import {
 } 
 from './detect'
 
-import { Card } from './types'
+import { Card, Suit } from './types'
 
-/** An enumeration for the set of suits */
-enum Suit {
-    Club = 1,
-    Diamond,
-    Heart,
-    Spade
-}
 
 /**
  * Convert an encoded set of cards into the best hand
