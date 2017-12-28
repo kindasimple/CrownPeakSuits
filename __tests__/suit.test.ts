@@ -1,14 +1,42 @@
-import { decodeCard, decodeHand, detectFeatures } from '../utils'
-import { Suit } from '../types'
+import { getHand, getBestHand, decodeCard, decodeHand } from '../suits'
+import { Card , Suit} from '../types'
 
-describe("Decodes hands", () => {
+
+describe("Get Best Suit", () => {
+    it("handles example 1", () => {
+        const hand = "Ah As 10c 7d 6s"
+        const expected = "Pair of Aces"
+        expect(getHand(hand)).toEqual(expected)
+    })
+
+    it("handles example 2", () => {
+        const hand = "Kh Kc 3s 3h 2d"
+        const expected = "2 Pair"
+        expect(getHand(hand)).toEqual(expected)
+    })
+
+    it("handles example 3", () => {
+        const hand = "Kh Qh 6h 2h 9h"
+        const expected = "Flush"
+        expect(getHand(hand)).toEqual(expected)
+    })
+
+    it("handles example 4", () => {
+        const hand = "Ah Kh Qh Jh 10h"
+        const expected = "Royal Flush"
+        expect(getHand(hand)).toEqual(expected)
+    })
+})
+
+describe("decoding", () => {
+
     const suits = [
         "c",
         "d",
         "h",
         "s",
     ]
-    
+
     it("decodes small cards", () => {
         const values = [2,3,4,5,6,7,8,9,10]
         suits.forEach(function(s){
@@ -44,16 +72,14 @@ describe("Decodes hands", () => {
         expect(decodeHand(hand)).toEqual(orders)
     })
 
-    it("detects features", () => {
-        const input = [
-            { suit: Suit.Heart, order: 3}, 
-            { suit: Suit.Heart, order: 4 },
-            { suit: Suit.Diamond, order: 4 },
-        ]
-        const valueHash = new Map([[3, 1], [4, 2]])
-        const suitsHash = new Map([[3, [3, 4]], [2, [4]]])
-        const expected = [valueHash, suitsHash]
+
+})
+
+describe("Detection", () => {
+    it("detects the best hand in a set", () => {
+        const hands = { fullHouse: true, pair: [2,4], straightFlush: [10]}
+        const expected = "straightFlush"
         
-        expect(detectFeatures(input)).toEqual(expected)
+        expect(getBestHand(hands)).toEqual(expected)
     })
 })
