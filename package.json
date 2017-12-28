@@ -1,0 +1,36 @@
+{
+  "name": "suits",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^21.1.9",
+    "jest": "^22.0.4",
+    "ts-jest": "^22.0.0",
+    "typedoc": "^0.9.0"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "build": "./node_modules/.bin/tsc --target es2017",
+    "test": "jest",
+    "clean": "rm *.js; rm *.js.map; rm -rf ./node_modules",
+    "docs": "typedoc --excludeExternals --includeDeclarations --out ./doc/ *.ts ./types/*.ts"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  },
+  "dependencies": {
+    "typescript": "^2.6.2"
+  }
+}
