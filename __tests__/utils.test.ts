@@ -1,9 +1,10 @@
-import { decodeHand } from '../utils'
+import { decodeCard, decodeHand, detectFeatures } from '../utils'
+import { Suit } from '../types'
 
 describe("Decodes hands", () => {
     const suits = [
         "c",
-        "d"
+        "d",
         "h",
         "s",
     ]
@@ -13,7 +14,7 @@ describe("Decodes hands", () => {
         suits.forEach(function(s){
             values.forEach(function(v) {
                 let suit = suits.indexOf(s)+1
-                expect(decodeHand(`${v}${s}`)).toEqual({ suit, order: v})
+                expect(decodeCard(`${v}${s}`)).toEqual({ suit, order: v})
             })
         })
     })
@@ -25,8 +26,34 @@ describe("Decodes hands", () => {
         suits.forEach(function(s){
             values.forEach(function(v, idx) {
                 let suit = suits.indexOf(s)+1
-                expect(decodeHand(`${v}${s}`)).toEqual({ suit, order: orders[idx] })
+                expect(decodeCard(`${v}${s}`)).toEqual({ suit, order: orders[idx] })
             })
         })
+    })
+
+    it("decodes a hand", () => {
+        const hand = "Ah As 10c 7d 6s"
+        const orders: Array<Card> = [
+            { suit: Suit.Heart, order: 14 },
+            { suit: Suit.Spade, order: 14 },
+            { suit: Suit.Club, order: 10 },
+            { suit: Suit.Diamond, order: 7 },
+            { suit: Suit.Spade, order: 6 }
+        ]
+
+        expect(decodeHand(hand)).toEqual(orders)
+    })
+
+    it("detects features", () => {
+        const input = [
+            { suit: Suit.Heart, order: 3}, 
+            { suit: Suit.Heart, order: 4 },
+            { suit: Suit.Diamond, order: 4 },
+        ]
+        const valueHash = new Map([[3, 1], [4, 2]])
+        const suitsHash = new Map([[3, [3, 4]], [2, [4]]])
+        const expected = [valueHash, suitsHash]
+        
+        expect(detectFeatures(input)).toEqual(expected)
     })
 })
